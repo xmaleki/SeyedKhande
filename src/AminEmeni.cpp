@@ -89,3 +89,65 @@ void AminEmeni::NormalAbility2(AbilityContext& context)
     cout<<"******** Zarbe Be Khodi execute successfully ********"<<endl;
 }
 
+
+
+void AminEmeni::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+    random_device rd;
+    mt19937 generator(rd());
+
+    if(!specialcontext.LivingEnemyHeroes.empty())
+    {
+        uniform_int_distribution<int> EnemyRand(0, specialcontext.LivingEnemyHeroes.size() - 1);
+
+        int RandomEnemyIndex = EnemyRand(generator);
+
+        specialcontext.LivingEnemyHeroes[RandomEnemyIndex]->TakeDamage(250, IsDamageMultiplierEnabled, DamageType::Single, *specialcontext.GameObj);
+
+        if (specialcontext.LivingEnemyHeroes[RandomEnemyIndex]->GetCurrentHP() <= 0)
+        {
+            specialcontext.LivingEnemyHeroes[RandomEnemyIndex]->SetDead();
+        }
+    }
+
+    vector<Hero *> LivingTeamHeroesExceptHimSelf;
+
+    for(const auto &hero : specialcontext.LivingTeamHeroes)
+    {
+        if(hero != nullptr && hero->Name != "Amin Emeni")
+            LivingTeamHeroesExceptHimSelf.push_back(hero);
+    }
+
+    if(LivingTeamHeroesExceptHimSelf.size() >= 1)
+    {
+        LivingTeamHeroesExceptHimSelf[0]->TakeDamage(30, IsDamageMultiplierEnabled,DamageType::Single, *specialcontext.GameObj);  
+
+        if (LivingTeamHeroesExceptHimSelf[0]->GetCurrentHP() <= 0)
+        {
+            LivingTeamHeroesExceptHimSelf[0]->SetDead();
+        }  
+    }
+    
+    if(LivingTeamHeroesExceptHimSelf.size() >= 2)
+    {
+        LivingTeamHeroesExceptHimSelf[1]->TakeDamage(30, IsDamageMultiplierEnabled,DamageType::Single, *specialcontext.GameObj);
+
+        if (LivingTeamHeroesExceptHimSelf[1]->GetCurrentHP() <= 0)
+        {
+            LivingTeamHeroesExceptHimSelf[1]->SetDead();
+        }
+    }
+
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    specialcontext.MyTeam->Energy -= 4;
+
+    cout<<">>Yek... Do... Se... Boom... Che kasi mond? mohem nist!<<..."<<endl;
+    cout<<"******** Faryad Na Amni execute successfully ********"<<endl;
+} 
+
+
+void AminEmeni::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    danighofliused = false;
+}
