@@ -813,3 +813,53 @@ void GameManager::Player(int teamIndex)
 
 }
 
+
+
+void GameManager::SetRoundEnergy()
+{
+   Team& CurrentTeam = teams[CurrentTeamIndex];
+   
+   bool IsStartingPlayer = (CurrentTeamIndex == StartingTeamIndex);
+
+   int TeamTurnNumber = CurrentTeam.turnCount + 1;
+
+   int NewTeamEnergy = 0;
+
+   if(IsStartingPlayer)
+   {
+        switch (TeamTurnNumber)
+        {
+            case 1:
+                NewTeamEnergy = 5;
+                break;
+            case 2:
+                NewTeamEnergy = 8;
+                break;
+            case 3:
+                NewTeamEnergy = 9;
+                break;
+            default:
+                NewTeamEnergy = 10;
+                break;
+        }
+   }
+   else
+   {
+        switch (TeamTurnNumber)
+        {
+            case 1: 
+                NewTeamEnergy = 8;
+                break;
+            case 2:
+                NewTeamEnergy = 9;
+                break;
+            default:
+                NewTeamEnergy = 10;
+                break;
+        }
+   }
+
+   CurrentTeam.Energy = NewTeamEnergy;
+
+}
+
