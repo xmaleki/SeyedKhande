@@ -424,3 +424,19 @@ void GameManager::DeleteDeadHeroes(vector<unique_ptr<Hero>> &heroes)
 
 
 }
+
+
+void GameManager::PrintHeroAndAbility(int teamid) const
+{
+    int i = 1;
+    for(const auto &hero_ptr : teams[teamid].heroes)
+    {
+        if(!hero_ptr->IsDead())
+        {
+            cout<<endl<< i <<" - Name Of Hero: "<<hero_ptr->Name<<"\t"<<"HP Is: "<<hero_ptr->GetHP()<<endl;
+            hero_ptr->GetNameOfAbility();
+            i++;
+        }
+    }
+}
+
