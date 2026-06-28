@@ -81,3 +81,9 @@ void Hero::SetDead()
     CurrentHP = 0;
     Dead = true;
 }
+
+void Hero::SetLive(int hp)
+{
+    CurrentHP = hp;
+    Dead = false;
+}
