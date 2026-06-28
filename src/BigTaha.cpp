@@ -84,3 +84,42 @@ void BigTaha::NormalAbility2(AbilityContext& context)
 
 }
 
+
+
+void BigTaha::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+    random_device rd;
+    mt19937 generator(rd());
+
+    if(!specialcontext.LivingEnemyHeroes.empty())
+    {
+        uniform_int_distribution<int> EnemyRand(0, specialcontext.LivingEnemyHeroes.size() - 1);
+
+        int RandomEnemyIndex = EnemyRand(generator);
+
+        specialcontext.LivingEnemyHeroes[RandomEnemyIndex]->BigTahaMarked = true;
+        specialcontext.LivingEnemyHeroes[RandomEnemyIndex]->SetBigTahaMarked(2);
+    }
+
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    specialcontext.MyTeam->Energy -= 3;
+
+    cout<<">>In yeki baraye dadash kochikam bod... Hala nobat to e.<<..."<<endl;
+    cout<<"******** Entegham Baradar execute successfully ********"<<endl;
+
+}
+
+
+
+
+void BigTaha::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    if(roundcount >= EndHiddenRound && EndHiddenRound != 0)
+    {
+        EndHiddenRound = 0;
+        SetUnHidden();
+    }
+
+    danighofliused = false;
+}
