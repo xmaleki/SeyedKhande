@@ -1,0 +1,75 @@
+#include <string>
+#include <iostream>
+#include "Hero.h"
+#include "GameManager.h"
+#include <random>
+#include <limits>
+#include "AghaShahriar.h"
+
+
+void AghaShahriar::NormalAbility1(AbilityContext& context)
+{
+    random_device rd;
+    mt19937 generator(rd());
+
+    vector<string> Enemy;
+    int counter = 1;
+
+    cout<<"Live enemy heroes: "<<endl;
+    for(const auto &hero : context.LivingEnemyHeroes)
+    {
+        if(hero->IsHiddenFunc())
+            continue;
+
+        cout<<counter<<") "<<hero->Name<<"\t";
+        Enemy.push_back(hero->Name);
+        counter++;
+    }
+
+    int target;
+    while(true)
+    {
+        cout<<"\nPlease enter your choice: ";
+        cin>>target;
+
+        if(target < 1 || target > context.LivingEnemyHeroes.size())
+        {
+            cout<<"Invalid target. enter again!";
+            continue;
+        }
+        else
+            break;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    uniform_int_distribution<int> RandZeroTo100(1, 100);
+    int RandNumber = RandZeroTo100(generator);
+
+    for(const auto &hero : context.LivingEnemyHeroes)
+    {
+        if(hero->Name == Enemy[target - 1])
+        {
+            if(RandNumber <= 20)
+            {
+                cout<<"\n######### Miss #########";
+                break;
+            }
+            else
+            {
+                hero->TakeDamage(60, IsDamageMultiplierEnabled, DamageType::Single, *context.GameObj);
+                if (hero->GetCurrentHP() <= 0)
+                {
+                    hero->SetDead();
+                }
+                break;
+            }
+        }
+    }
+
+    context.MyTeam->Energy -= 2;
+
+    cout<<"******** Maskhare execute successfully ********"<<endl;
+}
+
