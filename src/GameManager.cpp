@@ -20,7 +20,7 @@ void GameManager::initializeHeroes()
 {
     for(int i = 0; i < 2; i++)
     {
-        cout<<"Player "<< CurrentTeamIndex + 1 <<", Choose your heroes :"<<endl;
+        cout<<endl<<"Player "<< CurrentTeamIndex + 1 <<", Choose your heroes :"<<endl;
         cout<<"1. White Doctor \n2. Small Taha \n3. dani golang \n4. Amin Emeni \n5. Big Taha\n6. Pouya Kazh Dam\n7. Agha Shahriar\n";
         
         vector<int> chosenHeroes;
@@ -244,8 +244,6 @@ void GameManager::Run()
 {
         cout<<"===================== Welcome To The Seyed Khande ====================="<<endl;
         cout<<"In this game, two teams will compete. Each team must select three heroes. Please proceed with your hero selection."<<endl<<endl;
-        printHeroes();
-        initializeHeroes();
 
         random_device rd;
         mt19937 generator(rd());
@@ -253,6 +251,9 @@ void GameManager::Run()
     
         CurrentTeamIndex = RandGen(generator);
         StartingTeamIndex = CurrentTeamIndex;
+
+        printHeroes();
+        initializeHeroes();
 
         GameLoop();
 
