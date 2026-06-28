@@ -75,3 +75,9 @@ void Hero::DecreaseBigTahaMarked()
     if(BigTahaMarkedRemain <= 0)
         BigTahaMarkedRemain = 0;
 }
+
+void Hero::SetDead()
+{
+    CurrentHP = 0;
+    Dead = true;
+}
