@@ -129,3 +129,70 @@ void WhiteDoctor::NormalAbility2(AbilityContext& context)
     cout<<"******** Doping execute successfully ********"<<endl;
 
 }
+
+
+void WhiteDoctor::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+
+    Hero* TargetHero = nullptr;
+    
+    vector<string> DeadTeam;
+    int counter = 1;
+
+    if(!specialcontext.DeadTeammateHeroes.empty())
+    {
+        cout<<"Teammate dead heroes: "<<endl;       
+        for(const auto &hero : specialcontext.DeadTeammateHeroes)
+        {
+            cout<<counter<<") "<<hero->Name<<"\t";
+            DeadTeam.push_back(hero->Name);
+            counter++;
+        }
+
+        int choice;
+        while(true)
+        {
+            cout<<"\nPlease enter your choice: ";
+            cin>>choice;
+
+            if(choice < 1 || choice > specialcontext.DeadTeammateHeroes.size())
+            {
+                cout<<"Invalid choice. enter again!";
+                continue;
+            }
+            else
+                break;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        for(const auto &hero : specialcontext.DeadTeammateHeroes)
+        {
+            if(hero != nullptr && hero->Name == DeadTeam[choice - 1])
+            {
+                hero->SetLive(200);
+                TargetHero = hero;
+                break;
+            }
+        }
+    }
+    else
+    {
+        cout<<"There is'nt dead heroes."<<endl;
+    }
+    
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    // Delete all nagative effects
+    TargetHero->danighofliused = false;
+    TargetHero->BigTahaMarked = false;
+    TargetHero->IsAghrabExists = false;
+    TargetHero->IsAghrabActivated = false;
+
+    specialcontext.MyTeam->Energy -= 4;
+
+    cout<<">>Biyaridesh roye miz... Zende mimone age shans biyare<<."<<endl;
+    cout<<"******** Amaliyat Otagh Amal execute successfully ********"<<endl;
+
+}
