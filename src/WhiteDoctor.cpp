@@ -72,3 +72,60 @@ void WhiteDoctor::NormalAbility1(AbilityContext& context)
     cout<<"******** Aspirin execute successfully ********"<<endl;
 
 }
+
+
+void WhiteDoctor::NormalAbility2(AbilityContext& context)
+{
+    vector<string> TeamMate;
+    int counter = 1;
+    
+    cout<<"Live teammate heroes: ";
+    for(const auto liveheroes : context.LivingTeamHeroes)
+    {
+        if(liveheroes != nullptr)
+        {
+            cout<<counter<<") "<<liveheroes->Name<<"\t";
+            TeamMate.push_back(liveheroes->Name);
+            counter++;
+        }
+    }
+
+    int choice;
+    while(true)
+    {
+        cout<<"\nPlease enter your choice: ";
+        cin>>choice;
+
+        if(choice < 1 || choice > context.LivingTeamHeroes.size())
+        {
+            cout<<"Invalid choice. enter again!";
+            continue;
+        }
+        else
+            break;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    Hero* ChosenHero = nullptr;
+
+    for(Hero* teamMate : context.LivingTeamHeroes)
+    {
+        if(teamMate != nullptr && teamMate->Name == TeamMate[choice - 1])
+        {
+            ChosenHero = teamMate;
+            break;
+        }
+    }
+
+    if(ChosenHero != nullptr)
+    {
+        ChosenHero->SetDamageMultiplier(context.RoundCount + 2);
+    }
+
+    context.MyTeam->Energy -= 4;
+
+    cout<<"******** Doping execute successfully ********"<<endl;
+
+}
