@@ -440,3 +440,75 @@ void GameManager::PrintHeroAndAbility(int teamid) const
     }
 }
 
+
+Hero* GameManager::ChooseHero(Team& team)
+{
+    while(true)
+    {
+        cout<<"--------============= Choose Hero =============--------"<<endl;
+        cout<<"-- Player number "<<CurrentTeamIndex + 1<<endl;
+        cout<<"-- Your team energy is: "<<team.Energy<<endl;
+        cout<<"----------------"<<endl;
+        
+
+        vector<Hero*> LiveHeroes;
+        for(const auto &hero : team.heroes)
+        {
+            if(!hero->IsDead()  && hero->IsAbilityActivated)
+            {
+                LiveHeroes.push_back(hero.get());
+            }
+        }
+
+        int counter = 1;
+        
+        for(const auto& hero : LiveHeroes)
+        {
+            cout<<counter<<") "<<hero->Name<<" HP: "<<hero->GetHP();
+            if(hero->HaveShield)
+            {
+                cout<<"\t [Have Shiled]"<<endl;
+            }
+            else
+                cout<<endl;
+
+            counter++;
+        }
+        int Skip = counter;
+        cout<<counter<<") Skip Turn"<<endl;
+        counter++;
+        int EndGame = counter;
+        cout<<counter<<") End Game"<<endl;
+
+        cout<<"Your choice: ";
+        int choice;
+        cin>>choice;
+        
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+
+        if(choice == Skip)
+        {
+            return nullptr;
+        }
+
+        if(choice == EndGame)
+            exit(0);
+
+
+        if(cin.fail() || choice < 1 || choice > LiveHeroes.size() + 2)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            cout<<"Invalid number. Please enter number from a list."<<endl;
+            continue;
+        }
+
+        if(choice == LiveHeroes.size() + 1)
+            return nullptr;
+        else
+            return LiveHeroes[choice - 1];
+    }
+}
+
+
+
