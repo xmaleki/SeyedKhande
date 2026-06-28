@@ -297,3 +297,33 @@ void GameManager::GameLoop()
 }
 
 
+
+
+void GameManager::ApplyEndOfRoundEffects()
+{
+    for(int i = 0; i < teams.size(); i++)
+    {
+        Team& currentTeam = teams[i];
+        Team& enemyTeam = teams[1 - i];
+
+        for(const auto &heroptr : currentTeam.heroes)
+        {
+            if(heroptr->IsDead()) continue;
+            heroptr->ApplyEndOfRoundEffects(RoundCounter, *this, enemyTeam, currentTeam);
+
+            if(heroptr->IsDamageMultiplierEnabled && RoundCounter >= heroptr->GetDamageMultiplierExpire())
+            {
+                heroptr->IsDamageMultiplierEnabled = false;
+            }
+            
+        }
+
+        
+    }
+
+   
+
+    
+}
+
+
