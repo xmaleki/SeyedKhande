@@ -232,3 +232,9 @@ bool GameManager::CanTeamMakeAnyMove(int teamIndex)
     }
     return false;
 }
+
+
+int GameManager::GetRoundCounter() const
+{
+    return RoundCounter;
+}
