@@ -251,3 +251,8 @@ void Hero::SetHidden()
 {
     IsHidden = true;
 }
+
+void Hero::SetUnHidden()
+{
+    IsHidden = false;
+}
