@@ -220,3 +220,15 @@ void GameManager::ActivateWorldInversion(int round)
     WorldInversionRoundRemaining = round;
     IsWorldInverse = true;
 }
+
+bool GameManager::CanTeamMakeAnyMove(int teamIndex)
+{
+    int currentEnergy = teams[teamIndex].Energy;
+
+    for(const auto& heroPtr : teams[teamIndex].heroes)
+    {
+        if(heroPtr->CanUseAbility(currentEnergy, RoundCounter, teams[teamIndex]))
+            return true;
+    }
+    return false;
+}
