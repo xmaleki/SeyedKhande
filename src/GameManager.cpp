@@ -209,3 +209,8 @@ void GameManager::printHeroes() const
 
 
 }
+
+bool GameManager::IsWorldInversed() const
+{
+    return IsWorldInverse; 
+}
