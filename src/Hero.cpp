@@ -67,3 +67,11 @@ int Hero::GetBigTahaMarked()
 {
     return BigTahaMarkedRemain;   
 }
+
+void Hero::DecreaseBigTahaMarked()
+{
+    BigTahaMarkedRemain--;
+
+    if(BigTahaMarkedRemain <= 0)
+        BigTahaMarkedRemain = 0;
+}
