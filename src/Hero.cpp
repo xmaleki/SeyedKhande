@@ -234,3 +234,9 @@ int Hero::GetRemainRoundShield()
 {
     return RemainRoundShield;
 }
+
+
+void Hero::DecreaseRoundShield()
+{
+    RemainRoundShield--;
+}
