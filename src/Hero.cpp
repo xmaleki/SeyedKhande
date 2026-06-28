@@ -246,3 +246,8 @@ bool Hero::IsHiddenFunc() const
     return IsHidden;
 }
 
+
+void Hero::SetHidden()
+{
+    IsHidden = true;
+}
