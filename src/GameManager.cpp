@@ -584,3 +584,232 @@ int GameManager::ChooseAbilityForMyHero(Hero* hero, Team& team)
         return choice;
     }
 }
+
+
+
+void GameManager::Player(int teamIndex)
+{
+    Team& CurrentTeam = teams[teamIndex];
+
+    if(!CanTeamMakeAnyMove(teamIndex))
+    {
+        cout<<"Your team doesn't have enough energy for any hero to make an attack. Turn ends.";
+        return;
+    }
+
+    for(const auto &heroptr : teams[teamIndex].heroes)
+    {
+        if(heroptr->IsDead())
+            continue;
+
+        if(heroptr->GetHillExpireRound() >= RoundCounter && heroptr->GetHillExpireRound() != 0)
+        {
+            heroptr->Hill(heroptr->GetHillRoundAmount(), *this);
+        }
+
+        if(heroptr->HaveShield && heroptr->GetRemainRoundShield() > 0)
+        {
+            heroptr->DecreaseRoundShield();
+
+            if(heroptr->GetRemainRoundShield() == 0)
+            {
+                heroptr->SetAmountShield(0);
+                heroptr->HaveShield = false;
+            }
+        }
+
+        if(heroptr->BigTahaMarked)
+        {
+            heroptr->DecreaseBigTahaMarked();
+
+            if(heroptr->GetBigTahaMarked() == 0)
+            {
+                if(BigTahaMark == nullptr)
+                {
+                    for(const auto &hero : teams[1 - teamIndex].heroes)
+                    {
+                        if(hero->Name == "Big Taha")
+                        {
+                            BigTahaMark = hero.get();
+                        }
+                    }
+                }
+                
+                
+                if(heroptr->GetHP() < 360)
+                {
+                    heroptr->SetDead();
+                }
+                else
+                {
+                    if(BigTahaMark != nullptr)
+                    {
+                        heroptr->TakeDamage(200, BigTahaMark->IsDamageMultiplierEnabled, DamageType::Single, *this);
+                        if (heroptr->GetCurrentHP() <= 0)
+                        {
+                            heroptr->SetDead();
+                        }
+                    }
+                }
+
+                heroptr->BigTahaMarked = false;
+
+            }
+        }
+
+
+
+
+
+        if(heroptr->IsAghrabExists)
+        {
+            if(kazhdam == nullptr)
+            {
+                for(const auto &hero : teams[1 - teamIndex].heroes)
+                {
+                    if(hero->Name == "Pouya Kazh Dam")
+                    {
+                        kazhdam = hero.get();
+                    }
+                }
+            }
+
+            if(kazhdam != nullptr)
+            {
+                if(heroptr->IsAghrabActivated)
+                {
+                    heroptr->TakeDamage(60, kazhdam->IsDamageMultiplierEnabled, DamageType::Single, *this);
+                    if (heroptr->GetCurrentHP() <= 0)
+                    {
+                        heroptr->SetDead();
+                    }
+                }
+                else
+                {
+                    heroptr->TakeDamage(20, kazhdam->IsDamageMultiplierEnabled, DamageType::Single, *this);
+                    if (heroptr->GetCurrentHP() <= 0)
+                    {
+                    heroptr->SetDead();
+                    }
+                }
+                
+            }
+            
+        }
+        
+
+        if(heroptr->Name == "Pouya Kazh Dam")
+        {
+            heroptr->ApplyEndOfRoundEffects(RoundCounter, *this, teams[1 - teamIndex], teams[teamIndex]);
+        }
+
+
+        if(heroptr->Name == "Agha Shahriar")
+        {
+            if(IsWorldInverse)
+            {
+                if(WorldInversionRoundRemaining > 0)
+                {
+                    WorldInversionRoundRemaining--;
+
+                    if(WorldInversionRoundRemaining == 0)
+                    {
+                        IsWorldInverse = false;
+                    }
+                }
+            }
+        }
+            
+        
+
+}
+    
+
+    while(true)
+    {
+        SpecifyWinner();
+
+        Hero* myhero = ChooseHero(CurrentTeam);
+
+        if(myhero == nullptr)
+        {
+            cout<<"Ending turn for team "<<teamIndex + 1<<"."<<endl;
+            break;
+        }
+
+        
+        int AbilityIndex = ChooseAbilityForMyHero(myhero, CurrentTeam);
+
+        if(AbilityIndex == 0)
+        {
+            continue;
+        }
+
+        vector<Hero *> LivingTeamHeroes;
+        for(auto const& heroPtr: teams[teamIndex].heroes)
+        {
+            if(!heroPtr->IsDead())
+            {
+                LivingTeamHeroes.push_back(heroPtr.get());
+            }
+        }
+        
+        vector<Hero *> LivingEnemyHeroes;
+        for(auto const &heroptr : teams[1 -teamIndex].heroes)
+        {
+            if(!heroptr->IsDead())
+            {
+                LivingEnemyHeroes.push_back(heroptr.get());
+            }
+        }
+
+        AbilityContext context {this ,myhero , LivingTeamHeroes, LivingEnemyHeroes, &teams[teamIndex], RoundCounter};
+
+
+        vector<Hero *> DeadTeammateHeroes;
+
+        for(const auto &heroptr : teams[teamIndex].heroes)
+        {
+            if(heroptr->IsDead())
+            {
+                DeadTeammateHeroes.push_back(heroptr.get());
+            }
+        }
+
+        SpecialAbilityContext specialcontext {this ,myhero, DeadTeammateHeroes, LivingTeamHeroes, LivingEnemyHeroes, &teams[teamIndex], RoundCounter};
+     
+        switch (AbilityIndex)
+        {
+        case 1:
+                myhero->NormalAbility1(context);
+            break;
+        case 2:
+                myhero->NormalAbility2(context);
+            break;
+        case 3:
+                myhero->SpecialAbility(specialcontext);
+            break;
+        
+        default:
+            cout<<"invalid chosen!";
+            continue;
+        }
+
+
+        cout<<"Remaining Energy: "<<CurrentTeam.Energy<<endl;
+
+        DeleteDeadHeroes(teams[teamIndex].heroes);
+        DeleteDeadHeroes(teams[1 - teamIndex].heroes);
+
+        if(!CanTeamMakeAnyMove(teamIndex))
+        {
+            cout<<"Not enough energy for further moves. Ending turn automatically."<<endl;
+            break;
+        }
+
+    }
+
+
+
+}
+
