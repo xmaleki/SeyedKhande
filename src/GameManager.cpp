@@ -407,3 +407,20 @@ void GameManager::SpecifyWinner() const
     }
 }
 
+
+void GameManager::DeleteDeadHeroes(vector<unique_ptr<Hero>> &heroes)
+{
+    auto it = heroes.begin();
+
+    while(it != heroes.end())
+    {
+        if((*it)->GetCurrentHP() == 0)
+        {
+            (*it)->SetDead();
+        }
+
+        it++;
+    }
+
+
+}
