@@ -87,3 +87,9 @@ void Hero::SetLive(int hp)
     CurrentHP = hp;
     Dead = false;
 }
+
+
+int Hero::GetHillRoundAmount()
+{
+    return HillRoundAmount;
+}
