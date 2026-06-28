@@ -30,3 +30,8 @@ bool Hero::CanUseAbility(int currentEnergy, int round, Team& currentteam) const
     return false;
 }
 
+int Hero::GetLimitOfSpecialAbility() const
+{
+    return LimitOfSpecialAbility;
+}
+
