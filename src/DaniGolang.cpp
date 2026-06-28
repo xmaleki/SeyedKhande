@@ -159,3 +159,48 @@ void DaniGolang::NormalAbility2(AbilityContext& context)
     cout<<"******** Fil Kosh execute successfully ********"<<endl;
 }
 
+
+
+void DaniGolang::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+    if(!specialcontext.LivingTeamHeroes.empty() && specialcontext.MyTeam != nullptr)
+    {
+        Hero *outminhero = specialcontext.LivingTeamHeroes[0];
+        int minhp = outminhero->GetHP();
+
+        for(int i = 1; i < specialcontext.LivingTeamHeroes.size(); i++)
+        {
+            Hero* currenthero = specialcontext.LivingTeamHeroes[i];
+
+            if(currenthero->GetHP() < minhp)
+            {
+                minhp = currenthero->GetHP();
+                outminhero = currenthero;
+            }
+        }
+
+        outminhero->HaveShield = true;
+        outminhero->RemainRoundShield = 2;
+        
+        specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+        specialcontext.MyTeam->Energy -= 4;
+    }
+
+    cout<<">>Hich kas az in khat rad nemishe<<!"<<endl;
+    cout<<"******** Sangar Khanevade execute successfully ********"<<endl;
+}
+
+
+
+
+
+
+
+void DaniGolang::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    LastGhofliTarget = nullptr;
+    CurrentGhofliDamage = 20.0;
+
+    danighofliused = false;
+}
