@@ -45,3 +45,9 @@ int Hero::GetEnergyOfNormalAbility2() const
 {
     return EnergyOfNormalAbility2;
 }
+
+int Hero::GetUseEnergyOfSpecialAbility() const
+{
+    return UseEnergyOfSpecialAbility;
+}
+
