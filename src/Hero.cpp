@@ -256,3 +256,8 @@ void Hero::SetUnHidden()
 {
     IsHidden = false;
 }
+
+void Hero::SetAmountShield(int amount)
+{
+    AmountShield = amount;
+}
