@@ -40,3 +40,8 @@ int Hero::GetEnergyOfNormalAbility1() const
 {
     return EnergyOfNormalAbility1;
 }
+
+int Hero::GetEnergyOfNormalAbility2() const
+{
+    return EnergyOfNormalAbility2;
+}
