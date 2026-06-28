@@ -198,3 +198,8 @@ int Hero::GetCurrentHP()
 {
     return CurrentHP;
 }
+
+void Hero::SetCurrentHP(int hp)
+{
+    CurrentHP = hp;
+}
