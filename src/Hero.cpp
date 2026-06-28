@@ -266,3 +266,15 @@ int Hero::GetAmountShield() const
 {
     return AmountShield;
 }
+
+bool Hero::GetIsSpecialAbilityUsable(int round ,Team& currentteam) const
+{
+    if(round >= GetLimitOfSpecialAbility() + currentteam.LastRoundUsedSpecial)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
