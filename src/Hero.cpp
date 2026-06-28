@@ -229,3 +229,8 @@ void Hero::SetRoundShield(int round)
 {
     RemainRoundShield = round;
 }
+
+int Hero::GetRemainRoundShield()
+{
+    return RemainRoundShield;
+}
