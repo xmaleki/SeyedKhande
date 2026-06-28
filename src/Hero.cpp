@@ -261,3 +261,8 @@ void Hero::SetAmountShield(int amount)
 {
     AmountShield = amount;
 }
+
+int Hero::GetAmountShield() const
+{
+    return AmountShield;
+}
