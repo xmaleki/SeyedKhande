@@ -65,3 +65,54 @@ void PouyaKazhDam::NormalAbility1(AbilityContext& context)
 
 }
 
+
+
+
+void PouyaKazhDam::NormalAbility2(AbilityContext& context)
+{
+    vector<string> Enemy;
+    int counter = 1;
+
+    cout<<"Live enemy heroes: "<<endl;
+    for(const auto &hero : context.LivingEnemyHeroes)
+    {
+        if(hero->IsHiddenFunc())
+            continue;
+
+        cout<<counter<<") "<<hero->Name<<"\t";
+        Enemy.push_back(hero->Name);
+        counter++;
+    }
+
+    int target;
+    while(true)
+    {
+        cout<<"\nPlease enter your choice: ";
+        cin>>target;
+
+        if(target < 1 || target > context.LivingEnemyHeroes.size())
+        {
+            cout<<"Invalid target. enter again!";
+            continue;
+        }
+        else
+            break;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    for(const auto &hero : context.LivingEnemyHeroes)
+    {
+        if(hero->Name == Enemy[target - 1])
+        {
+            hero->IsAghrabExists = true;
+            break;
+        }
+    }
+
+    context.MyTeam->Energy -= 4;
+    cout<<"******** Aghrab execute successfully ********"<<endl;
+
+}
+
