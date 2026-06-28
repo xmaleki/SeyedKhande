@@ -98,3 +98,63 @@ int Hero::GetHillExpireRound()
 {
     return HillExpireRound;
 }
+
+void Hero::TakeDamage(int damage, bool InIsDamageMultiplierEnabled,DamageType type ,GameManager& GameObj)
+{
+    if(this->IsHiddenFunc() && type != DamageType::Group)
+    {
+        cout<<"Target is hidden and Damage isn't group!";
+        return;
+    }
+
+    int FinalDamage = damage;
+    int InversedFinalDamage = damage;
+
+    if(InIsDamageMultiplierEnabled)
+    {
+        FinalDamage = static_cast<int> (damage * 1.2);
+        InversedFinalDamage = static_cast<int> (damage * 0.8);
+    }
+
+    if(HaveShield)
+    {
+        if(GameObj.IsWorldInversed())
+        {
+            // Dar in halat hich tafavoti ba halati ke separ faal nabashe nadare.
+            CurrentHP += InversedFinalDamage;
+            if(CurrentHP > MaxHP)
+                CurrentHP = MaxHP;
+        }
+        else
+        {
+            int DamageAbsorbedByShield;
+
+            DamageAbsorbedByShield = FinalDamage < AmountShield ? FinalDamage : AmountShield;
+
+            AmountShield -= DamageAbsorbedByShield;
+
+            FinalDamage -= DamageAbsorbedByShield;
+
+            CurrentHP -= FinalDamage;
+            if(CurrentHP < 0)
+                CurrentHP = 0;
+        }
+    }
+    else
+    {
+        if(GameObj.IsWorldInversed())
+        {
+            CurrentHP += InversedFinalDamage;
+            if(CurrentHP > MaxHP)
+                CurrentHP = MaxHP;
+        }
+        else
+        {
+            CurrentHP -= FinalDamage;
+            if(CurrentHP < 0)
+                CurrentHP = 0;
+        }
+    }
+}
+
+
