@@ -211,3 +211,10 @@ bool Hero::IsDead()
 
     return Dead;
 }
+
+
+void Hero::SetDamageMultiplier(int ExpireRound)
+{
+    DamageMultiplierExpire = ExpireRound;
+    IsDamageMultiplierEnabled = true;
+}
