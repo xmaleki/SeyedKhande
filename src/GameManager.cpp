@@ -238,3 +238,26 @@ int GameManager::GetRoundCounter() const
 {
     return RoundCounter;
 }
+
+
+void GameManager::Run()
+{
+        cout<<"===================== Welcome To The Seyed Khande ====================="<<endl;
+        cout<<"In this game, two teams will compete. Each team must select three heroes. Please proceed with your hero selection."<<endl<<endl;
+        printHeroes();
+        initializeHeroes();
+
+        random_device rd;
+        mt19937 generator(rd());
+        uniform_int_distribution<int> RandGen(0,1);
+    
+        CurrentTeamIndex = RandGen(generator);
+        StartingTeamIndex = CurrentTeamIndex;
+
+        GameLoop();
+
+
+
+}
+
+
