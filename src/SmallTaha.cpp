@@ -142,3 +142,44 @@ void SmallTaha::NormalAbility2(AbilityContext& context)
 
 }
 
+
+void SmallTaha::SpecialAbility(SpecialAbilityContext& specialcontext)
+{  
+    if(!specialcontext.LivingTeamHeroes.empty() && specialcontext.MyTeam != nullptr)
+    {
+        Hero *outminhero = specialcontext.LivingTeamHeroes[0];
+        int minhp = outminhero->GetHP();
+
+        for(int i = 1; i < specialcontext.LivingTeamHeroes.size(); i++)
+        {
+            Hero* currenthero = specialcontext.LivingTeamHeroes[i];
+
+            if(currenthero->GetHP() < minhp)
+            {
+                minhp = currenthero->GetHP();
+                outminhero = currenthero;
+            }
+        }
+
+        outminhero->Hill(200, *specialcontext.GameObj);
+        
+        specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+        specialcontext.MyTeam->Energy -= 4;
+
+    }
+
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    cout<<">>Hame dar jaye khod! in mantaghe alode ast<<!"<<endl;
+    cout<<"******** Gharantine Kamel execute successfully ********"<<endl;
+
+}
+
+
+
+
+void SmallTaha::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    danighofliused = false;
+}
