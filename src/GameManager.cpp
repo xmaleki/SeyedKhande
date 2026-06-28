@@ -512,3 +512,75 @@ Hero* GameManager::ChooseHero(Team& team)
 
 
 
+
+
+int GameManager::ChooseAbilityForMyHero(Hero* hero, Team& team)
+{
+    while(true)
+    {
+        cout<<"\n------------ Choose ability for "<< hero->Name<<" ------------"<<endl;
+        
+        cout<<"1) "<<hero->NameOfNormalAbility1 << " (Cost: "<<hero->GetEnergyOfNormalAbility1()<<")"<<endl;
+
+        cout<<"2) "<<hero->NameOfNormalAbility2 << " (Cost: "<<hero->GetEnergyOfNormalAbility2()<<")"<<endl;
+
+        cout<<"3) "<<hero->NameOfSpecialAbility << " (Cost: "<<hero->GetUseEnergyOfSpecialAbility()<<")";
+    
+        if(!hero->GetIsSpecialAbilityUsable(RoundCounter, team))
+        {
+            cout<<" [Unusable]";
+        }
+    
+        cout<<endl;
+
+        cout<<"4) Back to choose hero"<<endl;
+
+        cout<<"Your choice: ";
+
+        int choice;
+        cin>>choice;
+
+        if(cin.fail() || choice < 1 || choice > 4)
+        {
+            cin.clear();
+            cin.ignore();
+            cout<<"Invalid input. Please enter a number from 1 to 4."<<endl;
+            continue;
+        }
+
+        cin.ignore();
+
+        if(choice == 4)
+        {
+            return 0;
+        }
+
+        int AbilityEnergyCost = 0;
+
+        switch (choice)
+        {
+            case 1:
+                    AbilityEnergyCost = hero->GetEnergyOfNormalAbility1();
+                break;
+            case 2:
+                    AbilityEnergyCost = hero->GetEnergyOfNormalAbility2();
+                break;
+            case 3:
+                    if(!hero->GetIsSpecialAbilityUsable(RoundCounter, team))
+                    {
+                        cout << "######### This ability is on cooldown! #########" << endl;
+                        continue;
+                    }
+                    AbilityEnergyCost = hero->GetUseEnergyOfSpecialAbility();
+                break;
+        }
+
+        if(team.Energy < AbilityEnergyCost)
+        {
+            cout<<"Invalid move: Not enough energy. Costs "<<AbilityEnergyCost<<" , but you only have "<<team.Energy<<" ."<<endl;
+            continue;
+        }
+
+        return choice;
+    }
+}
