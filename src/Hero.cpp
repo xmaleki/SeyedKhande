@@ -93,3 +93,8 @@ int Hero::GetHillRoundAmount()
 {
     return HillRoundAmount;
 }
+
+int Hero::GetHillExpireRound()
+{
+    return HillExpireRound;
+}
