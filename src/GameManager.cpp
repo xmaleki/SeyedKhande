@@ -214,3 +214,9 @@ bool GameManager::IsWorldInversed() const
 {
     return IsWorldInverse; 
 }
+
+void GameManager::ActivateWorldInversion(int round)
+{
+    WorldInversionRoundRemaining = round;
+    IsWorldInverse = true;
+}
