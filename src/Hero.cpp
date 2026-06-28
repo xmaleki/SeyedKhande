@@ -51,3 +51,9 @@ int Hero::GetUseEnergyOfSpecialAbility() const
     return UseEnergyOfSpecialAbility;
 }
 
+
+int Hero::GetDamageMultiplierExpire() const
+{
+    return DamageMultiplierExpire;
+}
+
