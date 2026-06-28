@@ -218,3 +218,9 @@ void Hero::SetDamageMultiplier(int ExpireRound)
     DamageMultiplierExpire = ExpireRound;
     IsDamageMultiplierEnabled = true;
 }
+
+void Hero::SetHillRound(int ExpireRound, int Amount)
+{
+    HillRoundAmount = Amount;
+    HillExpireRound = ExpireRound;
+}
