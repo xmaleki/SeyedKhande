@@ -193,3 +193,8 @@ void Hero::Hill(int hill, GameManager& GameObj)
     }
 }
 
+
+int Hero::GetCurrentHP()
+{
+    return CurrentHP;
+}
