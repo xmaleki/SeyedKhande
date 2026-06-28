@@ -240,3 +240,9 @@ void Hero::DecreaseRoundShield()
 {
     RemainRoundShield--;
 }
+
+bool Hero::IsHiddenFunc() const
+{
+    return IsHidden;
+}
+
