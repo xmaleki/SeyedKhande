@@ -116,3 +116,62 @@ void PouyaKazhDam::NormalAbility2(AbilityContext& context)
 
 }
 
+
+
+void PouyaKazhDam::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+    specialcontext.MyHero->SetHidden();
+    specialcontext.MyHero->IsAbilityActivated = false;
+
+    // in tabe do bar dar har round farakhani mishe, pas bayad 8 bashe
+    EndHiddenEffectRound = 8;
+
+    specialcontext.MyTeam->Energy -= 5;
+    
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    cout<<">>Nisham ro didi? Na? Khob... Dige hich vaght nemibini<<..."<<endl;
+    cout<<"******** Dam Kazh Dam execute successfully ********"<<endl;
+
+
+}
+
+
+
+
+void PouyaKazhDam::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    if(EndHiddenEffectRound > 0)
+    {
+        EndHiddenEffectRound--;
+
+        if(EndHiddenEffectRound == 0)
+        {
+            if(enemy.heroes.empty())
+            {
+                cout<<"Enemy empty.";
+            }
+            else
+            {
+                IsAbilityActivated = true;
+                SetUnHidden();
+                EndHiddenEffectRound = 0;
+
+                random_device rd;
+                mt19937 generator(rd());
+                uniform_int_distribution<> randeng(0, enemy.heroes.size() - 1);
+
+                int randomenemyindex = randeng(generator);
+
+                enemy.heroes[randomenemyindex]->TakeDamage(450, IsDamageMultiplierEnabled, DamageType::Single, Gamemanager);
+                if (enemy.heroes[randomenemyindex]->GetCurrentHP() <= 0)
+                {
+                    enemy.heroes[randomenemyindex]->SetDead();
+                }
+            }
+        }  
+    }
+
+
+    danighofliused = false;
+}
