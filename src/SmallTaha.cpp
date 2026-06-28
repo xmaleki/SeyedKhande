@@ -86,3 +86,59 @@ void SmallTaha::NormalAbility1(AbilityContext& context)
     cout<<"******** Tigh Tiz execute successfully ********"<<endl;
 
 }
+
+
+void SmallTaha::NormalAbility2(AbilityContext& context)
+{  
+    vector<string> LiveTeammet;
+    int counter = 1;
+
+    cout<<"Live Heroes: ";
+    for(const auto liveheroes : context.LivingTeamHeroes)
+    {
+        cout<<counter<<") "<<liveheroes->Name<<"\t";
+        LiveTeammet.push_back(liveheroes->Name);
+        counter++;
+    }
+
+
+    int choice;
+    while(true)
+    {
+        cout<<"\nPlease enter your choice: ";
+        cin>>choice;
+
+        if(choice < 1 || choice > context.LivingTeamHeroes.size())
+        {
+            cout<<"Invalid choice. enter again!";
+            continue;
+        }
+        else
+            break;
+    }
+
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    Hero* ChosenHero = nullptr;
+
+    for(Hero* teamMate : context.LivingTeamHeroes)
+    {
+        if(teamMate != nullptr && teamMate->Name == LiveTeammet[choice - 1])
+        {
+            ChosenHero = teamMate;
+            break;
+        }
+    }
+
+    if(ChosenHero != nullptr)
+    {
+        ChosenHero->SetHillRound(context.RoundCount + 2, 40);
+    }
+
+    context.MyTeam->Energy -= 4;
+
+    cout<<"******** Serom Khon execute successfully ********"<<endl;
+
+}
+
