@@ -1,9 +1,11 @@
 #include<iostream>
 using namespace std;
-
+#include "GameManager.h"
 
 int main()
 {
+  GameManager gameobj;
+  gameobj.Run();
 
   return 0;
 }
