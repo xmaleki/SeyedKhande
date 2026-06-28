@@ -18,3 +18,15 @@ void Hero::GetNameOfAbility() const
     cout<<"Special Ability: "<<NameOfSpecialAbility<<endl;
 }
 
+
+
+bool Hero::CanUseAbility(int currentEnergy, int round, Team& currentteam) const
+{
+    if((EnergyOfNormalAbility1 < currentEnergy) || (EnergyOfNormalAbility2 < currentEnergy))
+        return true;
+    if(GetIsSpecialAbilityUsable(round, currentteam) && UseEnergyOfSpecialAbility < currentEnergy)
+        return true;
+    
+    return false;
+}
+
