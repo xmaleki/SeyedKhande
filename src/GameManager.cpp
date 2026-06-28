@@ -261,3 +261,39 @@ void GameManager::Run()
 }
 
 
+
+void GameManager::GameLoop()
+{
+    while(!isGameOver())
+    {
+        cout<<"============================= Round "<<RoundCounter + 1<<" ============================="<<endl;
+
+        SetRoundEnergy();
+
+        Player(CurrentTeamIndex);
+
+        teams[CurrentTeamIndex].turnCount++;
+
+        DeleteDeadHeroes(teams[CurrentTeamIndex].heroes);
+
+        CurrentTeamIndex = 1 - CurrentTeamIndex;
+
+        SetRoundEnergy();
+        
+        Player(CurrentTeamIndex);
+
+        teams[CurrentTeamIndex].turnCount++;
+
+        DeleteDeadHeroes(teams[CurrentTeamIndex].heroes);
+
+        ApplyEndOfRoundEffects();
+
+        CurrentTeamIndex = 1 - CurrentTeamIndex;
+
+        RoundCounter++;
+
+        SpecifyWinner();
+    }
+}
+
+
