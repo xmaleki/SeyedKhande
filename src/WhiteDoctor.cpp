@@ -196,3 +196,9 @@ void WhiteDoctor::SpecialAbility(SpecialAbilityContext& specialcontext)
     cout<<"******** Amaliyat Otagh Amal execute successfully ********"<<endl;
 
 }
+
+
+void WhiteDoctor::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    danighofliused = false;
+}

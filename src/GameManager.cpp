@@ -7,7 +7,7 @@
 #include "AghaShahriar.h"
 #include "AminEmeni.h"
 #include "BigTaha.h"
-#include "danigolang.h"
+#include "DaniGolang.h"
 #include "PouyaKazhDam.h"
 #include "SmallTaha.h"
 #include "WhiteDoctor.h"
@@ -59,7 +59,7 @@ void GameManager::initializeHeroes()
                 teams[i].heroes.push_back(make_unique<SmallTaha>());
                 break;
             case 3:
-                teams[i].heroes.push_back(make_unique<danigolang>());
+                teams[i].heroes.push_back(make_unique<DaniGolang>());
                 break;
             case 4:
                 teams[i].heroes.push_back(make_unique<AminEmeni>());
