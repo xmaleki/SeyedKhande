@@ -35,3 +35,8 @@ int Hero::GetLimitOfSpecialAbility() const
     return LimitOfSpecialAbility;
 }
 
+
+int Hero::GetEnergyOfNormalAbility1() const
+{
+    return EnergyOfNormalAbility1;
+}
