@@ -224,3 +224,8 @@ void Hero::SetHillRound(int ExpireRound, int Amount)
     HillRoundAmount = Amount;
     HillExpireRound = ExpireRound;
 }
+
+void Hero::SetRoundShield(int round)
+{
+    RemainRoundShield = round;
+}
