@@ -57,3 +57,8 @@ int Hero::GetDamageMultiplierExpire() const
     return DamageMultiplierExpire;
 }
 
+void Hero::SetBigTahaMarked(int amount)
+{
+    BigTahaMarkedRemain = amount;
+}
+
