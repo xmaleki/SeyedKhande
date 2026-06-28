@@ -158,3 +158,38 @@ void Hero::TakeDamage(int damage, bool InIsDamageMultiplierEnabled,DamageType ty
 }
 
 
+
+void Hero::Hill(int hill, GameManager& GameObj)
+{
+    if(GameObj.IsWorldInversed())
+    {
+
+        if(HaveShield)
+        {
+            int DamageAbsorbedByShield;
+
+            DamageAbsorbedByShield = hill < AmountShield ? hill : AmountShield;
+
+            AmountShield -= DamageAbsorbedByShield;
+
+            hill -= DamageAbsorbedByShield;
+
+            CurrentHP -= hill;
+            if(CurrentHP < 0)
+                CurrentHP = 0;
+        }
+        else
+        {
+            CurrentHP -= hill;
+            if(CurrentHP < 0)
+            CurrentHP = 0;
+        }
+    }
+    else
+    {
+        CurrentHP += hill;
+        if(CurrentHP > MaxHP)
+            CurrentHP = MaxHP;
+    }
+}
+
