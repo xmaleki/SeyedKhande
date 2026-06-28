@@ -66,3 +66,26 @@ void AminEmeni::NormalAbility1(AbilityContext& context)
     cout<<"******** Akharin Feshang execute successfully ********"<<endl;
 }
 
+
+
+void AminEmeni::NormalAbility2(AbilityContext& context)
+{
+    random_device rd;
+    mt19937 generator(rd());
+    uniform_int_distribution<int> RandIndex(0 , context.LivingTeamHeroes.size() - 1);
+        
+    int RandomTeammateIndex = RandIndex(generator);
+
+    context.LivingTeamHeroes[RandomTeammateIndex]->TakeDamage(25, IsDamageMultiplierEnabled,DamageType::Single, *context.GameObj);
+    if (context.LivingTeamHeroes[RandomTeammateIndex]->GetCurrentHP() <= 0)
+    {
+        context.LivingTeamHeroes[RandomTeammateIndex]->SetDead();
+    }
+
+    context.MyHero->Hill(75, *context.GameObj);
+
+    context.MyTeam->Energy -= 3;
+
+    cout<<"******** Zarbe Be Khodi execute successfully ********"<<endl;
+}
+
