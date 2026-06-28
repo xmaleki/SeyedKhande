@@ -203,3 +203,11 @@ void Hero::SetCurrentHP(int hp)
 {
     CurrentHP = hp;
 }
+
+bool Hero::IsDead()
+{
+    if(CurrentHP <= 0)
+        Dead = true;
+
+    return Dead;
+}
