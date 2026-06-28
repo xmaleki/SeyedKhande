@@ -327,3 +327,16 @@ void GameManager::ApplyEndOfRoundEffects()
 }
 
 
+
+bool GameManager::isGameOver() const
+{
+    if(teams[0].turnCount >= 15 || teams[1].turnCount >= 15)
+        return true;
+
+    if(teams[0].heroes.empty() || teams[1].heroes.empty())
+        return true;
+
+
+   return false;
+}
+
