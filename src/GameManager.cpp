@@ -340,3 +340,70 @@ bool GameManager::isGameOver() const
    return false;
 }
 
+
+
+void GameManager::SpecifyWinner() const
+{
+    int Team1Alive = 0;
+    int Team2Alive = 0;
+
+    for(auto const &hero : teams[0].heroes)
+    {
+        if(!hero->IsDead())
+            Team1Alive++;    
+    }
+
+    for(auto const &hero : teams[1].heroes)
+    {
+        if(!hero->IsDead())
+            Team2Alive++;
+    }
+
+    // equal: last hero of teams delete at same time.
+    if(Team1Alive == 0 && Team2Alive == 0)
+    {
+        cout<<"======================== GAME OVER ========================"<< endl;
+        cout<<"Result: EQUAL! The last heroes of both teams fell simultaneously"<< endl;
+        exit(0);
+    }
+
+    if(Team1Alive == 0)
+    {
+        cout<<"======================== GAME OVER ========================"<< endl;
+        cout<<"Result: Team 2 WINS! All heroes of Team 1 have been killed."<< endl;
+        exit(0);
+    }
+
+    if(Team2Alive == 0)
+    {
+        cout<<"======================== GAME OVER ========================"<< endl;
+        cout<<"Result: Team 1 WINS! All heroes of Team 2 have been killed."<< endl;
+        exit(0);
+    }
+
+
+    if(RoundCounter >= 15)
+    {
+        cout<<"======================== GAME OVER ========================"<< endl;
+        cout<<"Game ended by reaching the round limit." <<endl;
+        cout<<"Team 1 has "<< Team1Alive <<" heroes remaining." <<endl;
+        cout<<"Team 2 has "<< Team2Alive <<" heroes remaining." <<endl;
+        
+        if(Team1Alive > Team2Alive)
+        {
+            cout<<"Result: Team 1 WINS by having more surviving heroes!"<<endl;
+            exit(0);
+        }
+        else if(Team2Alive > Team1Alive)
+        {
+            cout<<"Result: Team 2 WINS by having more surviving heroes!"<<endl;
+            exit(0);
+        }
+        else
+        {
+            cout<<"Result: EQUAL! Both teams have the same number of heroes." << endl;
+            exit(0);
+        }
+    }
+}
+
