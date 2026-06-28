@@ -143,3 +143,28 @@ void AghaShahriar::NormalAbility2(AbilityContext& context)
 }
 
 
+
+void AghaShahriar::SpecialAbility(SpecialAbilityContext& specialcontext)
+{
+    specialcontext.GameObj->ActivateWorldInversion(2);
+
+
+
+    specialcontext.MyTeam->Energy -= 8;
+    
+    specialcontext.MyTeam->LastRoundUsedSpecial = specialcontext.RoundCount;
+
+    cout<<"******** Makos Sazi Jahan (Ba Tashdid) execute successfully ********"<<endl;
+
+}
+
+
+
+
+
+
+void AghaShahriar::ApplyEndOfRoundEffects(int roundcount, GameManager& Gamemanager, Team &enemy, Team& currentteam)
+{
+    
+    danighofliused = false;
+}
