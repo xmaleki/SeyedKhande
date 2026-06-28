@@ -62,3 +62,8 @@ void Hero::SetBigTahaMarked(int amount)
     BigTahaMarkedRemain = amount;
 }
 
+
+int Hero::GetBigTahaMarked()
+{
+    return BigTahaMarkedRemain;   
+}
