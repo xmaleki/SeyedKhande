@@ -108,10 +108,11 @@ The goal is to defeat all three heroes of the opposing team. The first team to e
 
 # Author
 Abolfazl Maleki
+
 Computer Engineering Student at Bu-Ali Sina University
 
 # Contributing
-Contributions, suggestions, and improvements are welcome.
-You can open an Issue or submit a Pull Request.
+Contributions, suggestions, and improvements are welcome. You can open an Issue or submit a Pull Request.
+
 ---
 If you enjoyed the project, consider giving it a Star!
