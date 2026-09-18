@@ -9,6 +9,10 @@
 Seyed Khande is a university Advanced Programming project built around a two-team tactical combat system. Each team selects three unique heroes, manages a shared Energy pool, and uses normal and special abilities to defeat the opposing team.
 The project was designed to practice Object-Oriented Programming, inheritance, polymorphism, abstraction, smart pointers, game-state management, and modular C++ development.
 
+<p align="center">
+  <img src="./assets/ExampleSeyedKhande.jpg" alt="Seyed Khande" width="100%">
+</p>
+
 # Features
 | Feature | Description |
 |--|--|
@@ -105,11 +109,6 @@ The goal is to defeat all three heroes of the opposing team. The first team to e
 | Smart Pointers | `std::unique_ptr` is used for managing hero objects. |
 | STL Containers | `std::vector` is used to store and manage heroes. |
 | References & Pointers | Used for passing and accessing game objects and contexts. |
-
-# Author
-Abolfazl Maleki
-
-Computer Engineering Student at Bu-Ali Sina University
 
 # Contributing
 Contributions, suggestions, and improvements are welcome. You can open an Issue or submit a Pull Request.
