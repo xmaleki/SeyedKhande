@@ -68,7 +68,7 @@ The project was designed to practice Object-Oriented Programming, inheritance, p
 
 # Build And Run
     cd build
-    cmake
+    cmake .
     make
 ## Run
     ./app
