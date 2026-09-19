@@ -26,11 +26,6 @@ The project was designed to practice Object-Oriented Programming, inheritance, p
 | Hero Revival | Some abilities can bring defeated heroes back into the battle. |
 | Console-Based | The game is played entirely through the terminal. |
 
-# Creator
-| Name | Student Number |
-|--|--|
-| Abolfazl Maleki | *40412358052* |
-
 # Project Structure
 ```text
 ├── CMakeLists.txt
@@ -109,6 +104,11 @@ The goal is to defeat all three heroes of the opposing team. The first team to e
 | Smart Pointers | `std::unique_ptr` is used for managing hero objects. |
 | STL Containers | `std::vector` is used to store and manage heroes. |
 | References & Pointers | Used for passing and accessing game objects and contexts. |
+
+# Author
+| Name | Student Number |
+|--|--|
+| Abolfazl Maleki | *40412358052* |
 
 # Contributing
 Contributions, suggestions, and improvements are welcome. You can open an Issue or submit a Pull Request.
